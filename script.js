@@ -27,11 +27,25 @@ function createCard(taskInfo) {
   div.appendChild(span);
   div.appendChild(p);
 
+  if(taskInfo.tipo == 'Urgente'){
+    span.classList.add('span-urgent');
+  } else if (taskInfo.tipo == 'Prioritário'){
+    span.classList.add('span-priority');
+  } else{
+    span.classList.add('span-normal');
+  }
+
   // Criando botão para deletar tarefa
   const button = document.createElement("button");
 
   // Adicionando icone ao botão
   button.innerHTML = '<i class="fa fa-trash" aria-hidden="true"></i>';
+  
+  button.addEventListener("click", function(){
+    const positionLi = tasks.indexOf(taskInfo);
+    tasks.splice(positionLi, 1);
+    renderElements(tasks);
+  });
 
   /// Adicionando a div e o botão de deletar ao list item
   li.appendChild(div);
@@ -45,14 +59,29 @@ function renderElements(taskList) {
   htmlList.innerHTML = "";
 
   // Ajustar a lógica
-  let card = createCard(taskList[0]);
-  htmlList.appendChild(card);
+  for(i = 0; i < taskList.length; i++){
+    let card = createCard(taskList[i]);
+    htmlList.appendChild(card);
+  }
 
-  card = createCard(taskList[1]);
-  htmlList.appendChild(card);
-
-  card = createCard(taskList[2]);
-  htmlList.appendChild(card);
 }
-
 renderElements(tasks);
+
+function addListButton(){
+  const buttonAdd = document.querySelector('#btnSubmit');
+  buttonAdd.addEventListener("click", function(e){
+    e.preventDefault();
+
+    const titulo = document.querySelector('#input_title').value;
+    const tipo = document.querySelector('#input_priority').value;
+
+    const obj = {
+      titulo: titulo, tipo: tipo
+    };
+
+    tasks.push(obj);
+    renderElements(tasks);
+  });
+
+}
+addListButton();

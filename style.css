@@ -5,7 +5,7 @@
   font-family: 'Roboto', sans-serif;
 }
 
-header {
+header{
   margin: 20px auto;
   width: 67%;
   display: flex;
@@ -86,9 +86,11 @@ section h2{
 .tasks li div .span-urgent{
   background: red;
 }
+
 .tasks li div .span-priority{
   background: rgb(255, 174, 0);
 }
+
 .tasks li div .span-normal{
   background: green;
 }
